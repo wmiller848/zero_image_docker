@@ -37,5 +37,5 @@ EXPOSE 80
 EXPOSE 443
 EXPOSE 8080
 
-RUN echo "cd /opt/cc/app && bundle install"
+RUN echo "cd /opt/cc/app && bundle install" >> /run.sh
 RUN echo "nginx" >> /run.sh
