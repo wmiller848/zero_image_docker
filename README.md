@@ -15,7 +15,5 @@ VERSION=0.0.3 ./build
 ```
 
 ### Run the example app ###
-From ./example_apps/rails_deploy
-```
-TARGET=../rails/app.tar.gz ENV=f1 ./deploy
-```
+  * Untar the app.tar.gz
+  * Run the docker-compose file you want (f1.yml, l1.yml, etc..)
