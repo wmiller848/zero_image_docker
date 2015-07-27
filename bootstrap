@@ -15,3 +15,7 @@ cd ${BASE_PWD}/base_images/ruby_mri
 echo "Building Phusion Passenger Nginx Base Image - ${VERSION}"
 cd ${BASE_PWD}/base_images/phusion_passenger_nginx
 ./build
+
+echo "Building Rails Base Image - ${VERSION}"
+cd ${BASE_PWD}/base_images/apps/rails
+./build

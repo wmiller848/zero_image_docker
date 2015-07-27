@@ -1,0 +1,14 @@
+#!/bin/bash
+ROOT_PWD=${PWD}
+
+rm -rf ${PWD}/out
+mkdir -p ${PWD}/out
+
+cd rails-webapp
+docker build -t artifactory.roving.com/social/rails_builder:${VERSION} .
+
+docker run -v ${ROOT_PWD}/out:/host artifactory.roving.com/social/rails_builder:${VERSION} cp -r /usr/local/lib/ruby/gems/2.1.0/ /host
+docker run -v ${ROOT_PWD}/out:/host artifactory.roving.com/social/rails_builder:${VERSION} cp -r /opt/cc/apps/rails_example/public/assets/ /host
+
+cd ..
+tar -czf app.tar.gz ./rails-webapp ./out

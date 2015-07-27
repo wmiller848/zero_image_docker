@@ -1,0 +1,10 @@
+#!/bin/bash
+
+rm -rf ./app
+mkdir ./app
+tar -xf ${TARGET} -C ./app
+
+mkdir -p ./app/rails-webapp/public/assets
+cp -r ./app/out/assets/* ./app/rails-webapp/public/assets
+
+docker-compose -f ${ENV}.yml up

@@ -1,0 +1,12 @@
+rails:
+  image: artifactory.roving.com/social/rails:0.0.3
+  environment:
+    - ENV_NAME=F1
+    - ENV_CLASS=QA
+    - LOCATION_LDAP_VAULT=ldaps://p2-qaldapvault.ad.prodcc.net
+  volumes:
+    - "./app/out/2.1.0:/usr/local/lib/ruby/gems/2.1.0"
+    - "./app/rails-webapp:/opt/cc/apps/rails_example"
+    - "./nginx/rails.conf:/etc/nginx/sites-enabled/rails.conf"
+  ports:
+    - "80:80"

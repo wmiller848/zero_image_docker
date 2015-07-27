@@ -1,6 +1,0 @@
-rails:
-  build: ../src
-  environment:
-    - ENV_NAME=_
-    - ENV_CLASS=_
-    - LOCATION_LDAP_VAULT=_

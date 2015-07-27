@@ -1,0 +1,2 @@
+#!/bin/bash
+docker build -t artifactory.roving.com/social/rails:${VERSION} .
