@@ -1,0 +1,7 @@
+[template]
+src = "environment.properties.tmpl"
+dest = "/opt/cc/etc/environment.properties"
+keys = [
+    "/env/name",
+    "/env/class"
+]

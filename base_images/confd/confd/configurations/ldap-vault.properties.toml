@@ -1,0 +1,6 @@
+[template]
+src = "ldap-vault.properties.tmpl"
+dest = "/opt/cc/etc/ldap-vault.properties"
+keys = [
+    "/location/ldap/vault"
+]

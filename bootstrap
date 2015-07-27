@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+export VERSION=${BASE_VERSION}
+BASE_PWD=${PWD}
+
+echo "Building Confd Base Image - ${VERSION}"
+cd ${BASE_PWD}/base_images/confd
+./build
+
+echo "Building Ruby MRI Base Image - ${VERSION}"
+cd ${BASE_PWD}/base_images/ruby_mri
+./build
+
+echo "Building Phusion Passenger Nginx Base Image - ${VERSION}"
+cd ${BASE_PWD}/base_images/phusion_passenger_nginx
+./build
