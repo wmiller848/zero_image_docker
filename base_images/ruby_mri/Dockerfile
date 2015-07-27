@@ -1,4 +1,4 @@
-FROM artifactory.roving.com/social/confd:0.0.3
+FROM artifactory.roving.com/social/confd:latest
 
 MAINTAINER wmiller@constantcontact.com
 

@@ -2,15 +2,10 @@
 ROOT_PWD=${PWD}
 
 rm app.tar.gz
-rm -rf ${ROOT_PWD}/out
-mkdir -p ${ROOT_PWD}/out
+rm -rf ${ROOT_PWD}/tmp
+mkdir -p ${ROOT_PWD}/tmp
 
-cd rails-webapp
-docker build -t artifactory.roving.com/social/rails_builder:${VERSION} .
+docker run --rm -v ${ROOT_PWD}/tmp:/host -v ${ROOT_PWD}/compose/build_app:/build_app -v ${ROOT_PWD}/rails-webapp:/opt/cc/app artifactory.roving.com/social/rails:${VERSION} /build_app
 
-docker run -v ${ROOT_PWD}/out:/host artifactory.roving.com/social/rails_builder:${VERSION} cp -r /usr/local/lib/ruby/gems/2.1.0/ /host
-docker run -v ${ROOT_PWD}/out:/host artifactory.roving.com/social/rails_builder:${VERSION} cp -r /opt/cc/apps/rails_example/ /host
-
-cd ..
-tar -czf app.tar.gz --directory=./out 2.1.0 rails_example
-rm -rf ${ROOT_PWD}/out
+tar -czf app.tar.gz -C ${ROOT_PWD}/tmp . -C ${ROOT_PWD}/compose .
+rm -rf ${ROOT_PWD}/tmp

@@ -1,7 +1,0 @@
-#!/bin/bash
-
-rm -rf ./app
-mkdir ./app
-tar -xf ${TARGET} -C ./app
-
-docker-compose -f ${ENV}.yml up

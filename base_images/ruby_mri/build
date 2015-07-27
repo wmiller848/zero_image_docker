@@ -1,2 +1,3 @@
 #!/bin/bash
-docker build -t artifactory.roving.com/social/ruby_mri:${VERSION} .
+docker build -t artifactory.roving.com/social/ruby_mri:latest .
+docker tag artifactory.roving.com/social/ruby_mri:latest artifactory.roving.com/social/ruby_mri:${VERSION}

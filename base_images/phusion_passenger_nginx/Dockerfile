@@ -1,4 +1,4 @@
-FROM artifactory.roving.com/social/ruby_mri:0.0.3
+FROM artifactory.roving.com/social/ruby_mri:latest
 
 MAINTAINER wmiller@constantcontact.com
 
@@ -37,4 +37,5 @@ EXPOSE 80
 EXPOSE 443
 EXPOSE 8080
 
+RUN echo "cd /opt/cc/app && bundle install"
 RUN echo "nginx" >> /run.sh
