@@ -1,0 +1,1 @@
+docker build -t artifactory.roving.com/social/xvfb:${VERSION} .

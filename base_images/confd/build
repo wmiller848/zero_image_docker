@@ -1,3 +1,3 @@
 #!/bin/bash
 docker build -t artifactory.roving.com/social/confd:latest .
-docker tag artifactory.roving.com/social/confd:latest artifactory.roving.com/social/confd:${VERSION}
+docker tag -f artifactory.roving.com/social/confd:latest artifactory.roving.com/social/confd:${VERSION}
