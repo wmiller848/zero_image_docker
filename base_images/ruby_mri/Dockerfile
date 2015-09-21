@@ -5,7 +5,8 @@ MAINTAINER wmiller@constantcontact.com
 RUN yum -y install curl-devel zlib-devel openssl-devel pcre-devel
 RUN yum -y install glibc-devel glibc-headers glibc-static gcc cpp gcc-c++
 RUN yum -y install hostname make cmake autoconf automake patch
-RUN yum -y install wget git tar curl
+RUN yum -y install wget git tar curl which
+RUN yum -y install openssl
 
 # install ruby
 WORKDIR /opt
