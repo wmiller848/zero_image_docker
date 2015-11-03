@@ -7,9 +7,9 @@
     app_concerto: ctct_docker
     artifact_id: ctct_docker
     app_caps: CTCT_DOCKER
-    app_repo: git@undefined:undefined/ctct_docker
-    #app_repo_https: https://undefined:undefined/ctct_docker
-    app_branch: release
+    app_repo: git@github.roving.com:wmiller/ctct_docker.git
+    #app_repo_https: https://github.roving.com/wmiller/ctct_docker.git
+    app_branch: master
     rvm: 'ruby-2.1.1@concerto'
     nodejs_installation: 'Node_4.2.1'
     hipchat_jenkins_url: '${JENKINS_URL}'
@@ -52,10 +52,10 @@
             jobnum: '10'
         - '{{job_prefix}}-{{jobnum}}-Artifact' :
             jobnum: '10.1'
-        
-        
-        
-        
+
+
+
+
 #         - '{{job_prefix}}-{{jobnum}}-Security-Audit' :
 #             jobnum: '10.6'
 #         ##
