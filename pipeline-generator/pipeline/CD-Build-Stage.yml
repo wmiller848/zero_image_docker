@@ -1,0 +1,63 @@
+- job:
+    name: '{{job_prefix}}-{{jobnum}}-Build-Stage'
+    job_type: multi_project
+    description: '{{shared_description}} Control job for the Commit / Build stage for {{app}}.'
+    concurrent_build: false
+    discard_old:
+      days: '{{days_to_keep_builds}}'
+    prepare_environment:
+      properties_content: 'GIT_BRANCH={{app_branch}}'
+    wrappers:
+      - timestamp: true
+      - rvm: 'ruby-2.1.1@build-stage'
+    builders:
+      - multi_job:
+          phases:
+            "Child Jobs":
+              jobs:
+                - name: '{{job_prefix}}-{{jobnum}}.1-Artifact'
+                  exposed_scm: false
+                  current_params: false
+                  config:
+                    predefined_build_parameters: |
+                      PARENT_WORKSPACE=${WORKSPACE}
+                      GIT_BRANCH={{app_branch}}
+                
+                
+                
+                
+              continue_condition: 'SUCCESSFUL'
+      - inject_vars_file: build_job_info
+    publishers:
+      - claim_broken_build: true
+      - hipchat:
+          room: 'SMMDevelopers'
+          start_notify: '{{hipchat_start_notify}}'
+          success_notify: '{{hipchat_success_notify}}'
+          aborted_notify: '{{hipchat_aborted_notify}}'
+          notbuilt_notify: '{{hipchat_notbuilt_notify}}'
+          unstable_notify: '{{hipchat_unstable_notify}}'
+          failure_notify: '{{hipchat_failure_notify}}'
+          normal_notify: '{{hipchat_normal_notify}}'
+      - email_ext:
+          recipient_list: '${SCRIPT, script="find-upstream-committers.groovy"}'
+          triggers:
+            - type: failure
+              send_to_developers: true
+              send_to_requester: true
+              include_culprits: true
+              send_to_recipient_list: true
+            - type: fixed
+              send_to_developers: true
+              send_to_requester: true
+              include_culprits: true
+              send_to_recipient_list: true
+      - downstream:
+          project: '{{job_prefix}}-20-Acceptance-Stage-Remote'
+          data:
+            - file: next_job_params.txt
+      - downstream:
+          project: '{{job_prefix}}-{{jobnum}}.6-Build-Security-Audit'
+          exposed_scm: false
+          current_params: false
+          disableJob: false

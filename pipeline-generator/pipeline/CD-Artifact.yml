@@ -1,0 +1,26 @@
+- job:
+    name: '{{job_prefix}}-{{jobnum}}-Artifact'
+    description: '{{shared_description}} This job builds the {{app}} artifact and pushes it to Artifactory. It also tags the git repo with the app version, and commits the bumped version in preparation for the next development iteration.'
+    discard_old:
+      days: '{{days_to_keep_builds}}'
+    prepare_environment:
+      properties_content: 'GIT_BRANCH={{app_branch}}'
+    parameters:
+      - name: PARENT_WORKSPACE
+        type: string
+        default: ''
+        description: 'Path to the workspace of the parent build; used to pass info back to the parent by writing to file.'
+    scm_provider: git
+    scm_url: '{{app_repo}}'
+    scm_branch: '{{app_branch}}'
+    scm_params:
+      excluded_users: buildmaster
+      local_branch: '{{app_branch}}'
+    wrappers:
+      - timestamp: true
+      - nodejs:
+          node_installation_name: '{{nodejs_installation}}'
+    builders:
+      - shell_command: |
+          ./pipeline-helpers/build
+          ./pipeline-helpers/upload

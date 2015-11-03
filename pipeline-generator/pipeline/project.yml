@@ -1,0 +1,150 @@
+- defaults:
+    name: global
+    shared_description: 'Do not edit this job through the web!'
+    uptime_deploy_repo: git@github.roving.com:smm/openstack.git
+    uptime_deploy_branch: master
+    app: ctct_docker
+    app_concerto: ctct_docker
+    artifact_id: ctct_docker
+    app_caps: CTCT_DOCKER
+    app_repo: git@undefined:undefined/ctct_docker
+    #app_repo_https: https://undefined:undefined/ctct_docker
+    app_branch: release
+    rvm: 'ruby-2.1.1@concerto'
+    nodejs_installation: 'Node_4.2.1'
+    hipchat_jenkins_url: '${JENKINS_URL}'
+    hipchat_auth_token: '${HIPCHAT_AUTH_TOKEN}'
+    hipchat_start_notify: true
+    hipchat_success_notify: true
+    hipchat_aborted_notify: true
+    hipchat_notbuilt_notify: true
+    hipchat_unstable_notify: true
+    hipchat_failure_notify: true
+    hipchat_normal_notify: true
+    days_to_keep_builds: '10'
+    jenkins_credentials: /home/jenkins/.ssh/id_rsa
+    healthcheck_url: 'https://ctct_docker.${ENV}.constantcontact.com/ctct_docker/healthcheck'
+    enable_fast_rollback: '1'
+    qe_jenkins_job_name: CD-RUN-RspecTest-V2.0
+    orchestra_version: 1.0.21
+    ci_sandbox_host: 'ctct_docker_s1_sandbox'
+    openstack_net: ''
+    deploy_script: './deploy.sh'
+    run_type: 'PLACEHOLDER'
+
+- project:
+    name: CD-CTCT_DOCKER-Pipeline-PreProd
+    job_prefix: CD-CTCT_DOCKER
+    views:
+        - 'CTCT_DOCKER'
+    jobs:
+        ##################
+        ## Pipeline Stage
+        ##################
+        - '{{job_prefix}}-{{jobnum}}-Pipeline-Generator' :
+            jobnum: '01'
+            kickoff_job: 'CD-CTCT_DOCKER-10-Build-Stage'
+
+        ###############
+        ## Build Stage
+        ###############
+        - '{{job_prefix}}-{{jobnum}}-Build-Stage' :
+            jobnum: '10'
+        - '{{job_prefix}}-{{jobnum}}-Artifact' :
+            jobnum: '10.1'
+        
+        
+        
+        
+#         - '{{job_prefix}}-{{jobnum}}-Security-Audit' :
+#             jobnum: '10.6'
+#         ##
+#         - '{{job_prefix}}-{{jobnum}}-Acceptance-Stage-Remote' :
+#             jobnum: '20'
+#             environment: 's1'
+#             remote_jenkins: 'http://p2-stageci01.ad.prodcc.net:8080/'
+#         - '{{job_prefix}}-{{jobnum}}-{{environment}}-Uptime-Deploy-Remote' :
+#             jobnum: '20.1'
+#             environment: s1
+#             remote_jenkins: 'http://p2-stageci01.ad.prodcc.net:8080/'
+#         - '{{job_prefix}}-{{jobnum}}-{{environment}}-Smoke-Test' :
+#             jobnum: '20.2'
+#             environment: s1
+#         ##
+#         - '{{job_prefix}}-{{jobnum}}-Backfill-Stage' :
+#             jobnum: '40'
+#         - '{{job_prefix}}-{{jobnum}}-{{environment}}-Deploy' :
+#             jobnum: '40.1'
+#             environment: l1
+#         - '{{job_prefix}}-{{jobnum}}-{{environment}}-Uptime-Deploy' :
+#             jobnum: '40.1.1'
+#             environment: l1
+#         - '{{job_prefix}}-{{jobnum}}-{{environment}}-Smoke-Test' :
+#             jobnum: '40.1.2'
+#             environment: l1
+#         - '{{job_prefix}}-{{jobnum}}-{{environment}}-Deploy' :
+#             jobnum: '40.2'
+#             environment: f1
+#         - '{{job_prefix}}-{{jobnum}}-{{environment}}-Uptime-Deploy' :
+#             jobnum: '40.2.1'
+#             environment: f1
+#         - '{{job_prefix}}-{{jobnum}}-{{environment}}-Smoke-Test' :
+#             jobnum: '40.2.2'
+#             environment: f1
+#
+# - project:
+#     name: CD-CTCT_DOCKER-Pipeline-Acceptance-S1
+#     job_prefix: CD-CTCT_DOCKER
+#     jobs:
+#         - '{{job_prefix}}-{{jobnum}}-Pipeline-Generator' :
+#             jobnum: '02'
+#             kickoff_job: ''
+#         - '{{job_prefix}}-{{jobnum}}-Acceptance-Stage-MultiJob' :
+#             jobnum: '20'
+#             environment: 's1'
+#         - '{{job_prefix}}-{{jobnum}}-Openstack' :
+#             jobnum: '20.1'
+#             environment: s1
+#             openstack_net: net611
+#             lb_pool_name: 'S1_Test-CI8'
+#             lb_pool_host: 'test-ci8.s1.constantcontact.com'
+#         - '{{job_prefix}}-{{jobnum}}-{{environment}}-Healthcheck' :
+#             jobnum: '20.2'
+#             environment: 's1'
+#             lb_pool_host: 'test-ci8.s1.constantcontact.com'
+#         - '{{job_prefix}}-{{jobnum}}-{{environment}}-{{run_type}}-Integration-Tests' :
+#             jobnum: '20.3.1'
+#             environment: 's1'
+#             run_type: 'ACCEPTANCE'
+#             expect_tests_run: 'TRUE'
+#         - '{{job_prefix}}-{{jobnum}}-{{environment}}-{{run_type}}-Integration-Tests' :
+#             jobnum: '20.3.2'
+#             environment: 's1'
+#             run_type: 'NONCRITICAL'
+#             expect_tests_run: 'FALSE'
+#
+# - project:
+#     name: CD-CTCT_DOCKER-Pipeline-Stage
+#     job_prefix: CD-CTCT_DOCKER
+#     jobs:
+#         - '{{job_prefix}}-{{jobnum}}-Pipeline-Generator' :
+#             jobnum: '01'
+#             kickoff_job: ''
+#         - '{{job_prefix}}-{{jobnum}}-{{environment}}-Uptime-Deploy' :
+#             jobnum: '30.1'
+#             environment: s1
+#         - '{{job_prefix}}-{{jobnum}}-{{environment}}-Uptime-Deploy' :
+#             jobnum: '30.1'
+#             environment: 's1-Force'
+#             deploy_script: './force_deploy.sh'
+#
+# - project:
+#     name: CD-CTCT_DOCKER-Pipeline-Prod
+#     job_prefix: CD-CTCT_DOCKER
+#     jobs:
+#         - '{{job_prefix}}-{{jobnum}}-Pipeline-Generator' :
+#             jobnum: '01'
+#             kickoff_job: ''
+#         - '{{job_prefix}}-{{jobnum}}-{{environment}}-Uptime-Deploy' :
+#             jobnum: '30.1'
+#             environment: prod

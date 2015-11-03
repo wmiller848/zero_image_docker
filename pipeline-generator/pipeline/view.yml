@@ -1,0 +1,18 @@
+- view:
+    name: 'CTCT_DOCKER'
+    type: 'categorizedView'
+    description: 'CTCT_DOCKER'
+    regex: 'CD-CTCT_DOCKER-(\d\d)-.*|CD-CTCT_DOCKER-(\d\d)\.(\d)-.*'
+    groupingRules:
+      - groupRegex: 'CD-CTCT_DOCKER-01.*'
+        namingRule: '0. Generator'
+      - groupRegex: 'CD-CTCT_DOCKER-10.*'
+        namingRule: '1. Build Stage'
+#       - groupRegex: 'CD-CTCT_DOCKER-20.*'
+#         namingRule: '2. Acceptance Stage'
+#       - groupRegex: 'CD-CTCT_DOCKER-30-.*|CD-CTCT_DOCKER-30\.(\d)-.*'
+#         namingRule: '3. Release Stage'
+#       - groupRegex: 'CD-CTCT_DOCKER-40-.*|CD-CTCT_DOCKER-40\.(\d)-.*'
+#         namingRule: '4. Backfill Stage'
+#       - groupRegex: 'CD-CTCT_DOCKER-50.*|CD-CTCT_DOCKER-60.*'
+#         namingRule: '5. Promotion Stage'

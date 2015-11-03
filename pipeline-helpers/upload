@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+#########
+## This file contains examples of build glue code.
+## Modify these examples to meet your needs
+#########
+
+ROOT_PWD=$PWD
+
+BASE_VERSION=`rake version`
+docker push artifactory.roving.com/social/rails:${BASE_VERSION}
+
+rake bump['--minor']

@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+#########
+## This file contains examples of build glue code.
+## Modify these examples to meet your needs
+#########
+
+ROOT_PWD=$PWD
+
+#######################
+## RUBY
+#######################
+# Bundle Assets
+bundle install -j4
+BASE_VERSION=`rake version`
+./bootstrap

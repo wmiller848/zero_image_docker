@@ -1,0 +1,3 @@
+source 'https://artifactory.roving.com/artifactory/api/gems/gems/'
+
+gem 'jenkins_pipeline_builder', '~> 0.12.4'

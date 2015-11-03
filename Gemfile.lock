@@ -1,0 +1,10 @@
+GEM
+  remote: https://artifactory.roving.com/artifactory/api/gems/gems/
+  specs:
+    artifactory (2.3.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  artifactory

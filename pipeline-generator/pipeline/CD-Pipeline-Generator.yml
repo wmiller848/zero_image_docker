@@ -1,0 +1,36 @@
+- job:
+    name: '{{job_prefix}}-{{jobnum}}-Pipeline-Generator'
+    description: '{{shared_description}} Job that generates pipeline jobs and kicks off pipeline for {{app}}.'
+    concurrent_build: false
+    discard_old:
+      days: '{{days_to_keep_builds}}'
+    scm_provider: git
+    scm_url: '{{app_repo}}'
+    scm_branch: '{{app_branch}}'
+    scm_params:
+      excluded_users: buildmaster
+      local_branch: '{{app_branch}}'
+    triggers:
+      - scm_polling: 'H/2 * * * *'
+    wrappers:
+      - timestamp: true
+      - rvm: '`cat pipeline-generator/.ruby-version`@`cat pipeline-generator/.ruby-gemset`'
+    builders:
+      - shell_command: |
+          # bash --login
+          cd pipeline-generator
+          bundle _1.10.6_ --version || gem install bundler -v 1.10.6
+          bundle install
+          bundle exec generate pipeline bootstrap pipeline/ '{{name}}'
+    publishers:
+      - hipchat:
+          room: 'SMMDevelopers'
+          start_notify: '{{hipchat_start_notify}}'
+          success_notify: '{{hipchat_success_notify}}'
+          aborted_notify: '{{hipchat_aborted_notify}}'
+          notbuilt_notify: '{{hipchat_notbuilt_notify}}'
+          unstable_notify: '{{hipchat_unstable_notify}}'
+          failure_notify: '{{hipchat_failure_notify}}'
+          normal_notify: '{{hipchat_normal_notify}}'
+      - downstream:
+          project: '{{kickoff_job}}'
