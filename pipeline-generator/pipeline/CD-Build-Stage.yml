@@ -9,7 +9,7 @@
       properties_content: 'GIT_BRANCH={{app_branch}}'
     wrappers:
       - timestamp: true
-      - rvm: '@build-stage'
+      - rvm: 'ruby-2.1.1@build-stage'
     builders:
       - multi_job:
           phases:

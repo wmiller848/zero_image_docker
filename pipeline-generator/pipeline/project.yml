@@ -10,7 +10,7 @@
     app_repo: git@github.roving.com:wmiller/ctct_docker
     #app_repo_https: https://github.roving.com:wmiller/ctct_docker
     app_branch: master
-    rvm: '@concerto'
+    rvm: 'ruby-2.1.1@concerto'
     nodejs_installation: 'Node_4.2.1'
     hipchat_jenkins_url: '${JENKINS_URL}'
     hipchat_auth_token: '${HIPCHAT_AUTH_TOKEN}'

@@ -18,7 +18,7 @@
       local_branch: '{{app_branch}}'
     wrappers:
       - timestamp: true
-      - rvm: '@build-stage'
+      - rvm: 'ruby-2.1.1@build-stage'
       - nodejs:
           node_installation_name: '{{nodejs_installation}}'
     builders:
