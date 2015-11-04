@@ -11,6 +11,7 @@ ROOT_PWD=$PWD
 export DOCKER_HOST=tcp://p2-docker01.ad.prodcc.net:4243
 
 BASE_VERSION=`rake version`
+echo "Uploading ${BASE_VERSION}"
 docker push artifactory.roving.com/social/rails:${BASE_VERSION}
 
 rake bump['--minor']
