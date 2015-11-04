@@ -7,6 +7,7 @@ set -e
 #########
 
 ROOT_PWD=$PWD
+export DOCKER_HOST=tcp://p2-docker01.ad.prodcc.net:4243
 
 #######################
 ## RUBY
@@ -15,5 +16,5 @@ gem install bundler
 
 # Bundle Assets
 bundle install -j4
-BASE_VERSION=`rake version`
+export BASE_VERSION=`rake version`
 ./bootstrap
