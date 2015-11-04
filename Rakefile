@@ -129,7 +129,7 @@ task :upload, [:artifact, :user, :pass, :build_name, :build_number] do |t, args|
   endpoint =  'https://artifactory.roving.com/artifactory'
   file = args[:artifact]
   repo_key = 'libs-release-local'
-  remote_path = "/com/constantcontact//ctct_docker/ctct_docker-#{version}.knob"
+  remote_path = "/com/constantcontact/wmiller/ctct_docker/ctct_docker-#{version}.knob"
 
   puts "Uploading #{file} to #{endpoint}/#{repo_key}#{remote_path}"
   # p args

@@ -14,7 +14,7 @@
       - scm_polling: 'H/2 * * * *'
     wrappers:
       - timestamp: true
-      - rvm: '`cat pipeline-generator/.ruby-version`@`cat pipeline-generator/.ruby-gemset`'
+      - rvm: '@pipeline-generator'
     builders:
       - shell_command: |
           # bash --login
