@@ -11,6 +11,8 @@ ROOT_PWD=$PWD
 #######################
 ## RUBY
 #######################
+gem install bundler
+
 # Bundle Assets
 bundle install -j4
 BASE_VERSION=`rake version`

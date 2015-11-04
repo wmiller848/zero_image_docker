@@ -19,8 +19,8 @@
     wrappers:
       - timestamp: true
       - rvm: 'ruby-2.1.1@build-stage'
-      - nodejs:
-          node_installation_name: '{{nodejs_installation}}'
+      #- nodejs:
+      #    node_installation_name: '{{nodejs_installation}}'
     builders:
       - shell_command: |
           ./pipeline-helpers/build
