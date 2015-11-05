@@ -1,0 +1,14 @@
+rails:
+  image: artifactory.roving.com/social/rails:0.0.10
+  env_file: .env
+  volumes:
+    - "./2.1.0:/usr/local/lib/ruby/gems/2.1.0"
+    - "./docker/nginx/rails.conf:/etc/nginx/sites-enabled/rails.conf"
+    - "./docker/run_app.sh:/run_app.sh"
+    - "./docker/confd/templates/rails_config.yml.tmpl:/etc/confd/templates/rails_config.yml.tmpl"
+    - "./docker/confd/conf.d/rails_config.yml.toml:/etc/confd/conf.d/rails_config.yml.toml"
+    - "./app:/opt/cc/app"
+  ports:
+    - "80:80"
+    #- "443:443"
+    #- "1337:1337"

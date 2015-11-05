@@ -1,7 +1,7 @@
 #!/bin/bash
 cd /opt/cc/app
 
-bundle install
+bundle install -j4
 RAILS_ENV=production bundle exec rake assets:precompile
 
 cp -r /usr/local/lib/ruby/gems/2.1.0/ /host

@@ -1,0 +1,6 @@
+[template]
+src = "rails_config.yml.tmpl"
+dest = "/opt/cc/etc/rails/rails.yml"
+keys = [
+  "/some/config/value",
+]

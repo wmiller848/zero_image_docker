@@ -1,11 +1,16 @@
 #!/bin/bash
+
+#############################################################################
+# This would normaly be a jenkins shell script and not checked into the repo
+#############################################################################
+
 ROOT_PWD=${PWD}
 
 rm app.tar.gz
 rm -rf ${ROOT_PWD}/tmp
 mkdir -p ${ROOT_PWD}/tmp
 
-docker run --rm -v ${ROOT_PWD}/tmp:/host -v ${ROOT_PWD}/compose/build_app:/build_app -v ${ROOT_PWD}/rails-webapp:/opt/cc/app artifactory.roving.com/social/rails:${VERSION} /build_app
+docker run --rm -v ${ROOT_PWD}/tmp:/host -v ${ROOT_PWD}/docker/build_app:/build_app -v ${ROOT_PWD}/rails-webapp:/opt/cc/app artifactory.roving.com/social/rails:${VERSION} /build_app
 
-tar -czf app.tar.gz -C ${ROOT_PWD}/tmp . -C ${ROOT_PWD}/compose .
+tar -czf app.tar.gz ./docker .*.env docker-compose.yml -C ${ROOT_PWD}/tmp .
 rm -rf ${ROOT_PWD}/tmp
